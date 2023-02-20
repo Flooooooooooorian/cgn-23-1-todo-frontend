@@ -24,13 +24,25 @@ function App() {
         return axios.post("/api/todo", todo)
             .then(response => response.data)
             .then(data => setTodos(prevState => [...prevState, data]))
+    }
 
+    function updateTodo(todo: Todo) {
+        axios.put("/api/todo/" + todo.id, todo)
+            .then(response => response.data)
+            .then(data =>  setTodos(prevState => {
+                return prevState.map(currentTodo => {
+                    if (currentTodo.id === todo.id) {
+                        return data
+                    }
+                    return currentTodo
+                })
+            }))
     }
 
     return (
         <div className="App">
             <AddTodo onAdd={addTodo}/>
-            <TodoBoards todos={todos}/>
+            <TodoBoards todos={todos} updateTodo={updateTodo}/>
         </div>
     );
 }
