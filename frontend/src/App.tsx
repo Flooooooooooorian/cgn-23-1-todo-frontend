@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {Todo} from "./model/Todo";
+import {NewTodo, Todo} from "./model/Todo";
 import axios from "axios";
 import TodoBoards from "./components/TodoBoards";
+import AddTodo from "./components/AddTodo";
 
 function App() {
 
@@ -19,8 +20,16 @@ function App() {
             .catch(console.error)
     }
 
+    function addTodo(todo: NewTodo) {
+        return axios.post("/api/todo", todo)
+            .then(response => response.data)
+            .then(data => setTodos(prevState => [...prevState, data]))
+
+    }
+
     return (
         <div className="App">
+            <AddTodo onAdd={addTodo}/>
             <TodoBoards todos={todos}/>
         </div>
     );

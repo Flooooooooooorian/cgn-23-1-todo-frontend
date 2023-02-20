@@ -4,3 +4,5 @@ export type Todo = {
     description: string
     status: "OPEN" | "IN_PROGRESS" | "DONE"
 }
+
+export type NewTodo = Omit<Todo, "id">
