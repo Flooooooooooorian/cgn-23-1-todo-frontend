@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {Todo} from "./Todo";
+import {Todo} from "./model/Todo";
 import axios from "axios";
+import TodoBoards from "./components/TodoBoards";
 
 function App() {
 
@@ -20,7 +21,7 @@ function App() {
 
     return (
         <div className="App">
-
+            <TodoBoards todos={todos}/>
         </div>
     );
 }
