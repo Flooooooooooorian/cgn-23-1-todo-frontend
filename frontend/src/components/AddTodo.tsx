@@ -13,14 +13,15 @@ export default function AddTodo(props: Props) {
         setDescription(event.target.value)
     }
 
-    function onSave() {
-        const newTodo: NewTodo = {description, status: "OPEN"}
+    function onSubmit(event: FormEvent<HTMLFormElement>) {
+        console.log(event)
+        const newTodo: NewTodo = {description, status: "open"}
         props.onAdd(newTodo)
             .then(r => setDescription(""))
     }
 
-    return <div>
+    return <form onSubmit={onSave}>
         <input value={description} onChange={onChange} placeholder="Description"/>
-        <button onClick={onSave}>Save</button>
-    </div>
+        <button type='submit'>Save</button>
+    </form>
 }
