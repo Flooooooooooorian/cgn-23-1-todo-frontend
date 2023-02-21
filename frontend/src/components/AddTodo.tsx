@@ -13,7 +13,7 @@ export default function AddTodo(props: Props) {
         setDescription(event.target.value)
     }
 
-    function onSave(event: any) {
+    function onSubmit(event: FormEvent<HTMLFormElement>) {
         console.log(event)
         const newTodo: NewTodo = {description, status: "open"}
         props.onAdd(newTodo)
