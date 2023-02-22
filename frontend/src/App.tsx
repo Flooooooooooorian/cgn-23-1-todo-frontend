@@ -1,43 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './App.css';
-import {NewTodo, Todo} from "./model/Todo";
-import axios from "axios";
 import TodoBoards from "./components/TodoBoards";
 import AddTodo from "./components/AddTodo";
+import useTodos from "./hooks/useTodos";
 
 function App() {
 
-    const [todos, setTodos] = useState<Todo[]>([])
-
-    useEffect(() => {
-        loadAllTodos()
-    }, [])
-
-    function loadAllTodos() {
-        return axios.get("/api/todo")
-            .then(response => response.data)
-            .then(setTodos)
-            .catch(console.error)
-    }
-
-    function addTodo(todo: NewTodo) {
-        return axios.post("/api/todo", todo)
-            .then(response => response.data)
-            .then(data => setTodos(prevState => [...prevState, data]))
-    }
-
-    function updateTodo(todo: Todo) {
-        axios.put("/api/todo/" + todo.id, todo)
-            .then(response => response.data)
-            .then(data =>  setTodos(prevState => {
-                return prevState.map(currentTodo => {
-                    if (currentTodo.id === todo.id) {
-                        return data
-                    }
-                    return currentTodo
-                })
-            }))
-    }
+    const {todos, addTodo, updateTodo} = useTodos()
 
     return (
         <div className="App">
